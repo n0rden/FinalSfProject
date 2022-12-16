@@ -21,6 +21,7 @@
 
 ## Структура БД:
 id - первичный ключ, id клиента
+
 balance - колчиество денег не счету клиента
 
 ![image](https://user-images.githubusercontent.com/93705476/208083551-fb8be15e-149e-4cee-9342-dbeb3d7358e0.png)
