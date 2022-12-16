@@ -1,0 +1,157 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-12-16 12:11:41
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2 (class 3079 OID 16384)
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 3317 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 212 (class 1259 OID 16524)
+-- Name: clients_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.clients_info (
+    id bigint NOT NULL,
+    balance double precision NOT NULL
+);
+
+
+ALTER TABLE public.clients_info OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16529)
+-- Name: clients_info_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.clients_info_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.clients_info_seq OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16523)
+-- Name: clients_money_info_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.clients_money_info_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.clients_money_info_seq OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16517)
+-- Name: patient_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.patient_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.patient_seq OWNER TO postgres;
+
+--
+-- TOC entry 3310 (class 0 OID 16524)
+-- Dependencies: 212
+-- Data for Name: clients_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.clients_info (id, balance) FROM stdin;
+1	990
+2	150
+3	165
+4	280
+5	1590
+6	2100
+\.
+
+
+--
+-- TOC entry 3318 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: clients_info_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.clients_info_seq', 1, false);
+
+
+--
+-- TOC entry 3319 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: clients_money_info_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.clients_money_info_seq', 1, false);
+
+
+--
+-- TOC entry 3320 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: patient_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.patient_seq', 101, true);
+
+
+--
+-- TOC entry 3168 (class 2606 OID 16528)
+-- Name: clients_info clients_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clients_info
+    ADD CONSTRAINT clients_info_pkey PRIMARY KEY (id);
+
+
+-- Completed on 2022-12-16 12:11:42
+
+--
+-- PostgreSQL database dump complete
+--
+
