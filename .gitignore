@@ -1,6 +1,6 @@
 HELP.md
 target/
-src/main/java/ru/kharitonov/finalsfproject/dtos
+!.src/main/java/ru/kharitonov/finalsfproject/dtos
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
