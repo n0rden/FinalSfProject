@@ -7,6 +7,8 @@ import ru.kharitonov.finalsfproject.entities.ClientEntity;
 import ru.kharitonov.finalsfproject.entities.TransactionEntity;
 import ru.kharitonov.finalsfproject.repositories.TransactionRepo;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 @Service
@@ -17,7 +19,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepo transactionRepo;
 
     @Override
-    public TransactionEntity addTransaction(ClientEntity clientEntity, int transactionType, Date transactionDate, double transactionAmount) {
+    public TransactionEntity addTransaction(ClientEntity clientEntity, int transactionType, LocalDate transactionDate, double transactionAmount) {
         TransactionEntity transactionEntity = TransactionEntity.builder()
                 .clientId(clientEntity)
                 .transaction(transactionType)

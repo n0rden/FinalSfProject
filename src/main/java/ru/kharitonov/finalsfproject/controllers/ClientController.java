@@ -46,9 +46,11 @@ public class ClientController {
     @GetMapping("/getoperations/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<TransactionDto> getOperationList(@PathVariable Long id) {
+    public List<TransactionDto> getOperationList(@PathVariable Long id,
+                                                 @RequestParam(required = false) String minDate,
+                                                 @RequestParam(required = false) String maxDate) {
         List<TransactionDto> transactionDtos = new ArrayList<>();
-        Set<TransactionDto> transactionEntitySet = clientService.getOperationList(id, null, null);
+        Set<TransactionDto> transactionEntitySet = clientService.getOperationList(id, minDate, maxDate);
         transactionDtos.addAll(transactionEntitySet);
         System.out.println(transactionDtos);
         return transactionDtos;
