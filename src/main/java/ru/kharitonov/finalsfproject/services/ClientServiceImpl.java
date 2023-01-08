@@ -13,7 +13,8 @@ import ru.kharitonov.finalsfproject.mappers.ClientMapper;
 import ru.kharitonov.finalsfproject.repositories.ClientRepo;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -26,6 +27,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private final TransactionService transactionService;
+
+    @Autowired
+    private final TransferService transferService;
 
     @Override
     public String getMoney(Long id) {
@@ -71,6 +75,20 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
+    public String transferMoney(Long idOutcome, Long idIncome, double amount) {
+        if (takeMoney(idOutcome, amount).equals("1")) {
+            if (putMoney(idIncome, amount).equals("1")) {
+                ClientEntity outcomeId = clientRepo.findById(idOutcome).orElse(new ClientEntity());
+                ClientEntity incomeId = clientRepo.findById(idIncome).orElse(new ClientEntity());
+                transferService.transferMoney(outcomeId, incomeId);
+                return "1";
+            }
+        }
+        return "0";
+    }
+
+    @Override
     public List<ClientDto> allClients() {
         return clientRepo.findAll().stream().map(ClientMapper::entityToDto).toList();
     }
@@ -87,8 +105,8 @@ public class ClientServiceImpl implements ClientService {
                 if (minDate.isBefore(maxDate) || minDate.isEqual(maxDate)) {
                     transactionDtos = transactionDtos.stream()
                             .filter(t ->
-                            (minDate.isBefore(LocalDate.parse(t.getDate())) || minDate.isEqual(LocalDate.parse(t.getDate())))
-                                    && (maxDate.isAfter(LocalDate.parse(t.getDate())) || maxDate.isEqual(LocalDate.parse(t.getDate()))))
+                                    (minDate.isBefore(LocalDate.parse(t.getDate())) || minDate.isEqual(LocalDate.parse(t.getDate())))
+                                            && (maxDate.isAfter(LocalDate.parse(t.getDate())) || maxDate.isEqual(LocalDate.parse(t.getDate()))))
                             .collect(Collectors.toSet());
                 }
             }

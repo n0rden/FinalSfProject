@@ -6,12 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.kharitonov.finalsfproject.dtos.ClientDto;
 import ru.kharitonov.finalsfproject.dtos.TransactionDto;
-import ru.kharitonov.finalsfproject.entities.ClientEntity;
-import ru.kharitonov.finalsfproject.entities.TransactionEntity;
 import ru.kharitonov.finalsfproject.services.ClientService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -46,14 +43,21 @@ public class ClientController {
     @GetMapping("/getoperations/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<TransactionDto> getOperationList(@PathVariable Long id,
-                                                 @RequestParam(required = false) String minDate,
+    public List<TransactionDto> getOperationList(@PathVariable Long id, @RequestParam(required = false) String minDate,
                                                  @RequestParam(required = false) String maxDate) {
         List<TransactionDto> transactionDtos = new ArrayList<>();
         Set<TransactionDto> transactionEntitySet = clientService.getOperationList(id, minDate, maxDate);
         transactionDtos.addAll(transactionEntitySet);
         System.out.println(transactionDtos);
         return transactionDtos;
+    }
+
+    @PutMapping("/transfermoney")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public String transferMoney(@RequestParam Long idOutcome, @RequestParam Long idIncome,
+                                @RequestParam Double amount) {
+        return clientService.transferMoney(idOutcome, idIncome, amount);
     }
 
     @GetMapping

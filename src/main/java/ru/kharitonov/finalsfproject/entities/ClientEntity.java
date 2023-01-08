@@ -21,4 +21,6 @@ public class ClientEntity {
     private double balance;
     @OneToMany(mappedBy = "clientId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TransactionEntity> transactionEntitySet = new HashSet<>();
+    @OneToMany(mappedBy = "outcomeId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TransferEntity> transferEntitySet = new HashSet<>();
 }
